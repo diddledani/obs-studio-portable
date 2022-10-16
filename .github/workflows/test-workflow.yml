@@ -1,0 +1,15 @@
+name: test-envvar-as-root
+
+on:
+  push:
+    branches: [test]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          TEST_VAR: "test`test"
+          TEST_TWO: "second-test"
+        run: >
+          sudo --preserve-env=TEST_VAR,TEST_TWO bash -c 'echo "VAR: $TEST_VAR"; echo "TWO: $TEST_TWO"'
